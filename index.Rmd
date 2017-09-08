@@ -30,10 +30,14 @@ sqldf(query)
 
 We can place as many conditions we want on the data output as long as we continue to place "and" before each condition. We can also use ">=" and "<=" to say "greater/less than or equal to".
 
-Suppose we want to see all the 1990s Phillies who hit 5 or more home runs. We can say:
 
-```{r message=FALSE, warning=FALSE}
+## ORDER BY
+
+With SQL, you can also order the rows in the output. For example, suppose you wanted to see every instance of a player hitting more than 50 home runs, but you would like the players with the most home runs to be at the top of this list. We could do this in the following way:
+
+```{r}
 query<-"SELECT playerID,teamID,yearID,HR from Batting
-WHERE teamID='PHI' and yearID>1989 and yearID<2000 and HR>=5"
+WHERE HR>50
+ORDER BY HR DESC"
 sqldf(query)
 ```

@@ -169,92 +169,51 @@ sqldf(query)</code></pre>
 ## 7 murphda05    PHI   1990  7
 ## 8  thondi01    PHI   1990  8</code></pre>
 <p>We can place as many conditions we want on the data output as long as we continue to place “and” before each condition. We can also use “&gt;=” and “&lt;=” to say “greater/less than or equal to”.</p>
-<p>Suppose we want to see all the 1990s Phillies who hit 5 or more home runs. We can say:</p>
+</div>
+<div id="order-by" class="section level2">
+<h2>ORDER BY</h2>
+<p>With SQL, you can also order the rows in the output. For example, suppose you wanted to see every instance of a player hitting more than 50 home runs, but you would like the players with the most home runs to be at the top of this list. We could do this in the following way:</p>
 <pre class="r"><code>query&lt;-&quot;SELECT playerID,teamID,yearID,HR from Batting
-WHERE teamID='PHI' and yearID&gt;1989 and yearID&lt;2000 and HR&gt;=5&quot;
+WHERE HR&gt;50
+ORDER BY HR DESC&quot;
 sqldf(query)</code></pre>
 <pre><code>##     playerID teamID yearID HR
-## 1  daultda01    PHI   1990 12
-## 2  dykstle01    PHI   1990  9
-## 3  hayesch01    PHI   1990 10
-## 4  hayesvo01    PHI   1990 17
-## 5  hollida01    PHI   1990  5
-## 6  jordari02    PHI   1990  5
-## 7   krukjo01    PHI   1990  7
-## 8  martica01    PHI   1990  8
-## 9  murphda05    PHI   1990  7
-## 10  thondi01    PHI   1990  8
-## 11 chambwe01    PHI   1991 13
-## 12 daultda01    PHI   1991 12
-## 13 hayesch01    PHI   1991 12
-## 14 hollida01    PHI   1991  6
-## 15 jordari02    PHI   1991  9
-## 16  krukjo01    PHI   1991 21
-## 17 murphda05    PHI   1991 18
-## 18  thondi01    PHI   1991  9
-## 19 amaroru02    PHI   1992  7
-## 20 chambwe01    PHI   1992  9
-## 21 daultda01    PHI   1992 27
-## 22 duncama01    PHI   1992  8
-## 23 dykstle01    PHI   1992  6
-## 24 hollida01    PHI   1992 27
-## 25  krukjo01    PHI   1992 10
-## 26 batiski01    PHI   1993  5
-## 27 chambwe01    PHI   1993 12
-## 28 daultda01    PHI   1993 24
-## 29 duncama01    PHI   1993 11
-## 30 dykstle01    PHI   1993 19
-## 31 eisenji01    PHI   1993  7
-## 32 hollida01    PHI   1993 18
-## 33 incavpe01    PHI   1993 24
-## 34 jordari02    PHI   1993  5
-## 35  krukjo01    PHI   1993 14
-## 36 prattto02    PHI   1993  5
-## 37 daultda01    PHI   1994 15
-## 38 duncama01    PHI   1994  8
-## 39 dykstle01    PHI   1994  5
-## 40 incavpe01    PHI   1994 13
-## 41 jordari02    PHI   1994  8
-## 42  krukjo01    PHI   1994  5
-## 43 daultda01    PHI   1995  9
-## 44 eisenji01    PHI   1995 10
-## 45 hayesch01    PHI   1995 11
-## 46 hollida01    PHI   1995  7
-## 47 jeffegr01    PHI   1995 11
-## 48 moranmi01    PHI   1995  6
-## 49 whitema01    PHI   1995 11
-## 50 incavpe01    PHI   1996 16
-## 51 jeffegr01    PHI   1996  7
-## 52 liebemi01    PHI   1996  7
-## 53 philljr01    PHI   1996  5
-## 54 santibe01    PHI   1996 30
-## 55 stockke01    PHI   1996  5
-## 56 whitema01    PHI   1996  7
-## 57 zeileto01    PHI   1996 20
-## 58 brognri01    PHI   1997 20
-## 59 daultda01    PHI   1997 11
-## 60 hudlere01    PHI   1997  5
-## 61 jeffegr01    PHI   1997 11
-## 62 jordake01    PHI   1997  6
-## 63 liebemi01    PHI   1997 20
-## 64 rolensc01    PHI   1997 21
-## 65 abreubo01    PHI   1998 17
-## 66 brognri01    PHI   1998 20
-## 67 estalbo02    PHI   1998  8
-## 68 glanvdo01    PHI   1998  8
-## 69 jeffegr01    PHI   1998  8
-## 70 lewisma01    PHI   1998  9
-## 71 liebemi01    PHI   1998  8
-## 72 relafde01    PHI   1998  5
-## 73 rolensc01    PHI   1998 31
-## 74 abreubo01    PHI   1999 20
-## 75 anderma02    PHI   1999  5
-## 76 brognri01    PHI   1999 24
-## 77 duceyro01    PHI   1999  8
-## 78  gantro01    PHI   1999 17
-## 79 glanvdo01    PHI   1999 11
-## 80 liebemi01    PHI   1999 31
-## 81 rolensc01    PHI   1999 26</code></pre>
+## 1  bondsba01    SFN   2001 73
+## 2  mcgwima01    SLN   1998 70
+## 3   sosasa01    CHN   1998 66
+## 4  mcgwima01    SLN   1999 65
+## 5   sosasa01    CHN   2001 64
+## 6   sosasa01    CHN   1999 63
+## 7  marisro01    NYA   1961 61
+## 8   ruthba01    NYA   1927 60
+## 9   ruthba01    NYA   1921 59
+## 10  foxxji01    PHA   1932 58
+## 11 greenha01    DET   1938 58
+## 12 howarry01    PHI   2006 58
+## 13 gonzalu01    ARI   2001 57
+## 14 rodrial01    TEX   2002 57
+## 15 wilsoha01    CHN   1930 56
+## 16 griffke02    SEA   1997 56
+## 17 griffke02    SEA   1998 56
+## 18  ruthba01    NYA   1920 54
+## 19  ruthba01    NYA   1928 54
+## 20 kinerra01    PIT   1949 54
+## 21 mantlmi01    NYA   1961 54
+## 22 ortizda01    BOS   2006 54
+## 23 rodrial01    NYA   2007 54
+## 24 bautijo02    TOR   2010 54
+## 25 davisch02    BAL   2013 53
+## 26 mantlmi01    NYA   1956 52
+## 27  mayswi01    SFN   1965 52
+## 28 fostege01    CIN   1977 52
+## 29 mcgwima01    OAK   1996 52
+## 30 rodrial01    TEX   2001 52
+## 31 thomeji01    CLE   2002 52
+## 32 kinerra01    PIT   1947 51
+## 33  mizejo01    NY1   1947 51
+## 34  mayswi01    NY1   1955 51
+## 35 fieldce01    DET   1990 51
+## 36 jonesan01    ATL   2005 51</code></pre>
 </div>
 
 
