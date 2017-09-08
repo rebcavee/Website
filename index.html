@@ -126,7 +126,7 @@ $(document).ready(function () {
 <pre class="r"><code>library(Lahman)
 library(sqldf)</code></pre>
 <p>Let’s take a look at an example. Suppose we want to see the home run totals for the 1927 Yankees. We could write:</p>
-<pre class="r"><code>query&lt;-&quot;select playerID,teamID,yearID,HR from Batting
+<pre class="r"><code>query&lt;-&quot;SELECT playerID,teamID,yearID,HR from Batting
 WHERE teamID='NYA' and yearID=1927&quot;
 sqldf(query)</code></pre>
 <pre><code>##     playerID teamID yearID HR
@@ -155,6 +155,106 @@ sqldf(query)</code></pre>
 ## 23 shockur01    NYA   1927  0
 ## 24 thomamy01    NYA   1927  0
 ## 25  weraju01    NYA   1927  1</code></pre>
+<p>We can also use the “&gt;” and “&lt;” keys to place parameters on the data we are given. For instance, if we only want to see instances of 1990 Phillies who hit more than 5 home runs, we can write:</p>
+<pre class="r"><code>query&lt;-&quot;SELECT playerID,teamID,yearID,HR from Batting
+WHERE teamID='PHI' and yearID=1990 and HR&gt;5&quot;
+sqldf(query)</code></pre>
+<pre><code>##    playerID teamID yearID HR
+## 1 daultda01    PHI   1990 12
+## 2 dykstle01    PHI   1990  9
+## 3 hayesch01    PHI   1990 10
+## 4 hayesvo01    PHI   1990 17
+## 5  krukjo01    PHI   1990  7
+## 6 martica01    PHI   1990  8
+## 7 murphda05    PHI   1990  7
+## 8  thondi01    PHI   1990  8</code></pre>
+<p>We can place as many conditions we want on the data output as long as we continue to place “and” before each condition. We can also use “&gt;=” and “&lt;=” to say “greater/less than or equal to”.</p>
+<p>Suppose we want to see all the 1990s Phillies who hit 5 or more home runs. We can say:</p>
+<pre class="r"><code>query&lt;-&quot;SELECT playerID,teamID,yearID,HR from Batting
+WHERE teamID='PHI' and yearID&gt;1989 and yearID&lt;2000 and HR&gt;=5&quot;
+sqldf(query)</code></pre>
+<pre><code>##     playerID teamID yearID HR
+## 1  daultda01    PHI   1990 12
+## 2  dykstle01    PHI   1990  9
+## 3  hayesch01    PHI   1990 10
+## 4  hayesvo01    PHI   1990 17
+## 5  hollida01    PHI   1990  5
+## 6  jordari02    PHI   1990  5
+## 7   krukjo01    PHI   1990  7
+## 8  martica01    PHI   1990  8
+## 9  murphda05    PHI   1990  7
+## 10  thondi01    PHI   1990  8
+## 11 chambwe01    PHI   1991 13
+## 12 daultda01    PHI   1991 12
+## 13 hayesch01    PHI   1991 12
+## 14 hollida01    PHI   1991  6
+## 15 jordari02    PHI   1991  9
+## 16  krukjo01    PHI   1991 21
+## 17 murphda05    PHI   1991 18
+## 18  thondi01    PHI   1991  9
+## 19 amaroru02    PHI   1992  7
+## 20 chambwe01    PHI   1992  9
+## 21 daultda01    PHI   1992 27
+## 22 duncama01    PHI   1992  8
+## 23 dykstle01    PHI   1992  6
+## 24 hollida01    PHI   1992 27
+## 25  krukjo01    PHI   1992 10
+## 26 batiski01    PHI   1993  5
+## 27 chambwe01    PHI   1993 12
+## 28 daultda01    PHI   1993 24
+## 29 duncama01    PHI   1993 11
+## 30 dykstle01    PHI   1993 19
+## 31 eisenji01    PHI   1993  7
+## 32 hollida01    PHI   1993 18
+## 33 incavpe01    PHI   1993 24
+## 34 jordari02    PHI   1993  5
+## 35  krukjo01    PHI   1993 14
+## 36 prattto02    PHI   1993  5
+## 37 daultda01    PHI   1994 15
+## 38 duncama01    PHI   1994  8
+## 39 dykstle01    PHI   1994  5
+## 40 incavpe01    PHI   1994 13
+## 41 jordari02    PHI   1994  8
+## 42  krukjo01    PHI   1994  5
+## 43 daultda01    PHI   1995  9
+## 44 eisenji01    PHI   1995 10
+## 45 hayesch01    PHI   1995 11
+## 46 hollida01    PHI   1995  7
+## 47 jeffegr01    PHI   1995 11
+## 48 moranmi01    PHI   1995  6
+## 49 whitema01    PHI   1995 11
+## 50 incavpe01    PHI   1996 16
+## 51 jeffegr01    PHI   1996  7
+## 52 liebemi01    PHI   1996  7
+## 53 philljr01    PHI   1996  5
+## 54 santibe01    PHI   1996 30
+## 55 stockke01    PHI   1996  5
+## 56 whitema01    PHI   1996  7
+## 57 zeileto01    PHI   1996 20
+## 58 brognri01    PHI   1997 20
+## 59 daultda01    PHI   1997 11
+## 60 hudlere01    PHI   1997  5
+## 61 jeffegr01    PHI   1997 11
+## 62 jordake01    PHI   1997  6
+## 63 liebemi01    PHI   1997 20
+## 64 rolensc01    PHI   1997 21
+## 65 abreubo01    PHI   1998 17
+## 66 brognri01    PHI   1998 20
+## 67 estalbo02    PHI   1998  8
+## 68 glanvdo01    PHI   1998  8
+## 69 jeffegr01    PHI   1998  8
+## 70 lewisma01    PHI   1998  9
+## 71 liebemi01    PHI   1998  8
+## 72 relafde01    PHI   1998  5
+## 73 rolensc01    PHI   1998 31
+## 74 abreubo01    PHI   1999 20
+## 75 anderma02    PHI   1999  5
+## 76 brognri01    PHI   1999 24
+## 77 duceyro01    PHI   1999  8
+## 78  gantro01    PHI   1999 17
+## 79 glanvdo01    PHI   1999 11
+## 80 liebemi01    PHI   1999 31
+## 81 rolensc01    PHI   1999 26</code></pre>
 </div>
 
 

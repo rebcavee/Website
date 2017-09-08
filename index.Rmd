@@ -15,7 +15,25 @@ library(sqldf)
 Let's take a look at an example. Suppose we want to see the home run totals for the 1927 Yankees. We could write:
 
 ```{r}
-query<-"select playerID,teamID,yearID,HR from Batting
+query<-"SELECT playerID,teamID,yearID,HR from Batting
 WHERE teamID='NYA' and yearID=1927"
+sqldf(query)
+```
+
+We can also use the ">" and "<" keys to place parameters on the data we are given. For instance, if we only want to see instances of 1990 Phillies who hit more than 5 home runs, we can write:
+
+```{r}
+query<-"SELECT playerID,teamID,yearID,HR from Batting
+WHERE teamID='PHI' and yearID=1990 and HR>5"
+sqldf(query)
+```
+
+We can place as many conditions we want on the data output as long as we continue to place "and" before each condition. We can also use ">=" and "<=" to say "greater/less than or equal to".
+
+Suppose we want to see all the 1990s Phillies who hit 5 or more home runs. We can say:
+
+```{r message=FALSE, warning=FALSE}
+query<-"SELECT playerID,teamID,yearID,HR from Batting
+WHERE teamID='PHI' and yearID>1989 and yearID<2000 and HR>=5"
 sqldf(query)
 ```
