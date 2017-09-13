@@ -215,6 +215,38 @@ sqldf(query)</code></pre>
 ## 35 fieldce01    DET   1990 51
 ## 36 jonesan01    ATL   2005 51</code></pre>
 </div>
+<div id="aggregation" class="section level2">
+<h2>Aggregation</h2>
+</div>
+<div id="joins" class="section level2">
+<h2>Joins</h2>
+<p>If you need information from multiple tables, you can construct a join. If we want to see records of Sammy Sosa’s home runs throughout his career and want to see his name instead of an obscure player ID, we can join the professional statistics from the Batting table with the personal statistics of the Master table.</p>
+<pre class="r"><code>query&lt;-&quot;SELECT nameFirst,nameLast,teamID,yearID,HR
+FROM Batting INNER JOIN Master
+ON Batting.playerID=Master.playerID
+WHERE Batting.playerID='sosasa01'&quot;
+sqldf(query)</code></pre>
+<pre><code>##    nameFirst nameLast teamID yearID HR
+## 1      Sammy     Sosa    TEX   1989  1
+## 2      Sammy     Sosa    CHA   1989  3
+## 3      Sammy     Sosa    CHA   1990 15
+## 4      Sammy     Sosa    CHA   1991 10
+## 5      Sammy     Sosa    CHN   1992  8
+## 6      Sammy     Sosa    CHN   1993 33
+## 7      Sammy     Sosa    CHN   1994 25
+## 8      Sammy     Sosa    CHN   1995 36
+## 9      Sammy     Sosa    CHN   1996 40
+## 10     Sammy     Sosa    CHN   1997 36
+## 11     Sammy     Sosa    CHN   1998 66
+## 12     Sammy     Sosa    CHN   1999 63
+## 13     Sammy     Sosa    CHN   2000 50
+## 14     Sammy     Sosa    CHN   2001 64
+## 15     Sammy     Sosa    CHN   2002 49
+## 16     Sammy     Sosa    CHN   2003 40
+## 17     Sammy     Sosa    CHN   2004 35
+## 18     Sammy     Sosa    BAL   2005 14
+## 19     Sammy     Sosa    TEX   2007 21</code></pre>
+</div>
 
 
 

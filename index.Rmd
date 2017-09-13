@@ -41,3 +41,21 @@ WHERE HR>50
 ORDER BY HR DESC"
 sqldf(query)
 ```
+
+
+## Aggregation
+
+
+
+
+## Joins
+
+If you need information from multiple tables, you can construct a join. If we want to see records of Sammy Sosa's home runs throughout his career and want to see his name instead of an obscure player ID, we can join the professional statistics from the Batting table with the personal statistics of the Master table.
+
+```{r}
+query<-"SELECT nameFirst,nameLast,teamID,yearID,HR
+FROM Batting INNER JOIN Master
+ON Batting.playerID=Master.playerID
+WHERE Batting.playerID='sosasa01'"
+sqldf(query)
+```
