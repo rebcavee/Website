@@ -217,6 +217,22 @@ sqldf(query)</code></pre>
 </div>
 <div id="aggregation" class="section level2">
 <h2>Aggregation</h2>
+<p>We can group our data and ask for sums of statistics that belong to the same group. For instance, if we want to see career sums of home runs, we can group the statistics by player ID, and then SQL will add each player’s annual home run totals. Remember to use “HAVING” and not “WHERE” when placing conditions in this case.</p>
+<pre class="r"><code>query&lt;-&quot;SELECT playerID,teamID,sum(HR)
+FROM Batting
+GROUP BY playerID
+HAVING sum(HR)&gt;=600
+ORDER BY HR DESC&quot;
+sqldf(query)</code></pre>
+<pre><code>##    playerID teamID sum(HR)
+## 1 bondsba01    SFN     762
+## 2  sosasa01    TEX     609
+## 3 aaronha01    ML4     755
+## 4 rodrial01    NYA     696
+## 5  mayswi01    NYN     660
+## 6  ruthba01    BSN     714
+## 7 thomeji01    BAL     612
+## 8 griffke02    SEA     630</code></pre>
 </div>
 <div id="joins" class="section level2">
 <h2>Joins</h2>

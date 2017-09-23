@@ -45,7 +45,16 @@ sqldf(query)
 
 ## Aggregation
 
+We can group our data and ask for sums of statistics that belong to the same group. For instance, if we want to see career sums of home runs, we can group the statistics by player ID, and then SQL will add each player's annual home run totals. Remember to use "HAVING" and not "WHERE" when placing conditions in this case.
 
+```{r}
+query<-"SELECT playerID,teamID,sum(HR)
+FROM Batting
+GROUP BY playerID
+HAVING sum(HR)>=600
+ORDER BY HR DESC"
+sqldf(query)
+```
 
 
 ## Joins
